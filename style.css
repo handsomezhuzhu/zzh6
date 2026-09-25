@@ -1,0 +1,211 @@
+/* ===== Fedora style terminal personal site ===== */
+:root {
+  --fedora-blue: #51a2da;
+  --fedora-dark: #294172;
+  --bg: #16141f;
+  --term-bg: rgba(23, 20, 33, 0.92);
+  --titlebar: #2b2b2b;
+  --fg: #d0d0d0;
+  --green: #5fd75f;
+  --yellow: #d7af5f;
+  --red: #ff5f5f;
+  --magenta: #af87d7;
+  --cyan: #5fd7d7;
+  --mono: "Cascadia Mono", "JetBrains Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--mono);
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(81, 162, 218, 0.25), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(41, 65, 114, 0.5), transparent 60%),
+    linear-gradient(135deg, #1a1f2e 0%, #294172 55%, #51a2da 130%);
+  color: var(--fg);
+  overflow: hidden;
+}
+
+.desktop {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---- GNOME top bar ---- */
+.topbar {
+  width: 100%;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 12px;
+  color: #eee;
+  flex-shrink: 0;
+  position: relative;
+}
+.topbar-activities { font-weight: bold; }
+.topbar-clock {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  opacity: 0.9;
+}
+
+/* ---- window ---- */
+.window {
+  margin-top: 4vh;
+  width: min(880px, 94vw);
+  height: min(660px, 80vh);
+  border-radius: 10px 10px 8px 8px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+.window.maximized {
+  margin-top: 0;
+  width: 100vw;
+  height: calc(100vh - 28px);
+  border-radius: 0;
+}
+
+.titlebar {
+  height: 38px;
+  background: var(--titlebar);
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: #ddd;
+  flex-shrink: 0;
+  user-select: none;
+  position: relative;
+}
+.titlebar-menu { display: flex; opacity: 0.8; }
+.titlebar-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.titlebar-buttons { margin-left: auto; display: flex; gap: 6px; }
+.tb-btn {
+  width: 30px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tb-btn:hover { background: rgba(255, 255, 255, 0.12); }
+.tb-close:hover { background: #e01b24; color: #fff; }
+
+/* ---- terminal ---- */
+.terminal {
+  flex: 1;
+  background: var(--term-bg);
+  padding: 12px 14px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.45;
+  cursor: text;
+}
+.terminal::-webkit-scrollbar { width: 8px; }
+.terminal::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+
+#output { white-space: pre-wrap; word-break: break-word; }
+
+.line { min-height: 1.2em; }
+.cmd-line { margin-top: 6px; }
+
+/* prompt colors */
+.p-bracket { color: #999; }
+.p-user, .p-host { color: var(--fedora-blue); font-weight: bold; }
+.p-at { color: var(--fg); }
+.p-dir { color: var(--magenta); font-weight: bold; }
+.p-dollar { color: var(--fg); }
+.typed-cmd { color: #fff; }
+
+/* output colors */
+.c-blue { color: var(--fedora-blue); }
+.c-darkblue { color: #7c9ecf; }
+.c-green { color: var(--green); }
+.c-yellow { color: var(--yellow); }
+.c-red { color: var(--red); }
+.c-cyan { color: var(--cyan); }
+.c-magenta { color: var(--magenta); }
+.c-dim { color: #888; }
+.c-bold { font-weight: bold; }
+
+a { color: var(--fedora-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* input line */
+.input-line { display: flex; align-items: baseline; margin-top: 4px; }
+.prompt { flex-shrink: 0; margin-right: 6px; }
+.input-wrap { position: relative; flex: 1; white-space: pre-wrap; word-break: break-all; }
+#ghost { color: #555; }
+.cursor {
+  display: inline-block;
+  background: var(--fg);
+  color: var(--term-bg);
+  animation: blink 1s step-end infinite;
+}
+.cursor.no-blink { animation: none; }
+@keyframes blink { 50% { opacity: 0; } }
+
+#hidden-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font: inherit;
+}
+
+.hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.hint code {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: var(--fedora-blue);
+}
+
+/* fastfetch table */
+.ff-row { display: flex; }
+.ff-key { color: var(--fedora-blue); font-weight: bold; min-width: 92px; }
+.ff-sep { color: #666; margin-right: 8px; }
+
+/* mobile */
+@media (max-width: 640px) {
+  .window { margin-top: 0; width: 100vw; height: calc(100vh - 28px - 34px); border-radius: 0; }
+  .terminal { font-size: 12.5px; }
+  .hint { padding: 0 8px; text-align: center; }
+}
+
