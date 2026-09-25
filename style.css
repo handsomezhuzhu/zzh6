@@ -247,10 +247,10 @@ a:hover { border-bottom-color: var(--accent); }
 /* banner */
 .banner-name {
   display: inline-block;
-  font-size: 26px;
+  font-size: 36px;
   font-weight: 800;
-  letter-spacing: 0.03em;
-  margin: 2px 0 8px;
+  letter-spacing: 0.05em;
+  margin: 4px 0 10px;
   background: linear-gradient(90deg, #7dd3fc, var(--accent) 55%, var(--accent-deep));
   -webkit-background-clip: text;
   background-clip: text;
@@ -262,6 +262,7 @@ body.light .banner-name {
 
 /* input line */
 .input-line { display: flex; align-items: baseline; margin-top: 6px; }
+body.booting .input-line { display: none; }
 .prompt { flex-shrink: 0; margin-right: 8px; }
 .input-wrap { position: relative; flex: 1; white-space: pre-wrap; word-break: break-all; }
 .cursor {

@@ -365,6 +365,7 @@ async function boot() {
   output.innerHTML = "";
   print(banner());
   print("");
+  document.body.classList.remove("booting");
   cursorEl.classList.remove("no-blink");
   hiddenInput.focus();
 }
