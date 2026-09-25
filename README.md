@@ -19,15 +19,16 @@ Everything personal lives in the `config` object at the top of `script.js` — n
 
 ## Local preview
 
-Open `index.html` directly, or:
-
 ```sh
-npx serve .
+npm install
+npm run dev      # dev server with hot reload
+npm run build    # production build -> dist/
+npm run preview  # preview the production build
 ```
 
 ## Deployment
 
-Static site — works out of the box with GitHub Pages (Settings → Pages → deploy from `main`).
+Pushing to `main` triggers the GitHub Actions workflow (`.github/workflows/pages.yml`), which builds with Vite and deploys to GitHub Pages automatically.
 
 ## License
 

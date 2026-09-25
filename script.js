@@ -93,7 +93,7 @@ function openLink(url) {
 function banner() {
   return [
     `<span class="banner-name">handsomezhuzhu</span>`,
-    `<span class="banner-rule">──────────────────────────────────────────</span>`,
+    `<span class="banner-rule">${"─".repeat(80)}</span>`,
     `${config.role}`,
     `${config.location} · <a href="${config.github}" target="_blank" rel="noreferrer noopener">github</a> · <a href="${config.website}" target="_blank" rel="noreferrer noopener">website</a> · <a href="mailto:${config.email}">email</a>`,
     "",
