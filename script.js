@@ -11,7 +11,9 @@ const config = {
   location: "China",
   email: "zhuzihan@zhuzihan.com",
   github: "https://github.com/handsomezhuzhu",
-  website: "https://zhuzihan.com/",
+  homepage: "https://www.zzh6.com/",   // personal homepage (this terminal)
+  showcase: "https://www.zhuzihan.com/", // personal showcase page
+  blog: "https://zhuzihan.com/",       // blog
   repo: "https://github.com/handsomezhuzhu/zzh6",
   about: [
     "Hey, I'm <b>Zihan Zhu</b> 👋",
@@ -32,6 +34,11 @@ const config = {
     degree: "Undergraduate",
   },
   projects: [
+    {
+      name: "zzh6 — this site",
+      desc: "My terminal-style personal homepage, the page you're on right now",
+      url: "https://www.zzh6.com/",
+    },
     {
       name: "Status Probe",
       desc: "Service status & uptime probe dashboard for zhuzihan.com",
@@ -93,7 +100,7 @@ function banner() {
   return [
     `<span class="banner-name">ZIHAN ZHU</span>`,
     `${config.role}`,
-    `${config.location} · <a href="${config.github}" target="_blank" rel="noreferrer noopener">github</a> · <a href="${config.website}" target="_blank" rel="noreferrer noopener">website</a> · <a href="mailto:${config.email}">email</a>`,
+    `${config.location} · <a href="${config.homepage}" target="_blank" rel="noreferrer noopener">home</a> · <a href="${config.showcase}" target="_blank" rel="noreferrer noopener">showcase</a> · <a href="${config.blog}" target="_blank" rel="noreferrer noopener">blog</a> · <a href="${config.github}" target="_blank" rel="noreferrer noopener">github</a> · <a href="mailto:${config.email}">email</a>`,
     "",
     `Hi, I'm <b>Zihan Zhu</b> 👋 Welcome to my terminal. <span class="c-dim">(Fedora Web Edition)</span>`,
     `Type <span class="c-blue c-bold">help</span> to list commands, <span class="c-blue">about</span> to learn more about me.`,
@@ -149,16 +156,19 @@ const commands = {
     desc: "how to reach me",
     run() {
       return [
-        `email    <a href="mailto:${config.email}">${config.email}</a>`,
-        `github   <a href="${config.github}" target="_blank" rel="noreferrer noopener">${config.github}</a>`,
-        `website  <a href="${config.website}" target="_blank" rel="noreferrer noopener">${config.website}</a>`,
+        `email     <a href="mailto:${config.email}">${config.email}</a>`,
+        `github    <a href="${config.github}" target="_blank" rel="noreferrer noopener">${config.github}</a>`,
+        `homepage  <a href="${config.homepage}" target="_blank" rel="noreferrer noopener">${config.homepage}</a>`,
+        `showcase  <a href="${config.showcase}" target="_blank" rel="noreferrer noopener">${config.showcase}</a>`,
+        `blog      <a href="${config.blog}" target="_blank" rel="noreferrer noopener">${config.blog}</a>`,
         "",
-        `<span class="c-dim">or run</span> <span class="c-blue">email</span><span class="c-dim">,</span> <span class="c-blue">github</span><span class="c-dim">,</span> <span class="c-blue">gui</span> <span class="c-dim">to jump right there.</span>`,
+        `<span class="c-dim">or run</span> <span class="c-blue">email</span><span class="c-dim">,</span> <span class="c-blue">github</span><span class="c-dim">,</span> <span class="c-blue">gui</span><span class="c-dim">,</span> <span class="c-blue">blog</span> <span class="c-dim">to jump right there.</span>`,
       ].join("\n");
     },
   },
   github: { desc: "open my GitHub profile", run: () => openLink(config.github) },
-  gui: { desc: "open my main website", run: () => openLink(config.website) },
+  gui: { desc: "open my showcase page (www.zhuzihan.com)", run: () => openLink(config.showcase) },
+  blog: { desc: "open my blog (zhuzihan.com)", run: () => openLink(config.blog) },
   repo: { desc: "view this site's source code", run: () => openLink(config.repo) },
   email: { desc: "send me an email", run: () => openLink("mailto:" + config.email) },
   ls: {
@@ -182,7 +192,21 @@ const commands = {
   echo: { desc: "print arguments", run: (args) => esc(args.join(" ")) },
   pwd: { desc: "print working directory", run: () => "/home/" + config.user },
   whoami: { desc: "print current user", run: () => "visitor — welcome to my site :)" },
-  date: { desc: "current date & time", run: () => new Date().toString() },
+  date: {
+    desc: "current date & time",
+    run: () =>
+      new Date().toLocaleString("en-US", {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZoneName: "short",
+      }),
+  },
   uname: {
     desc: "system information",
     run: () => "fedora-web 6.x x86_64 — 100% HTML, no kernel panic",
