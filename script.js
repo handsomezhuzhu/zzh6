@@ -6,7 +6,7 @@
 const config = {
   user: "visitor",
   host: "fedora",
-  name: "handsomezhuzhu",
+  name: "Zihan Zhu",
   role: "CS undergraduate @ School of Computer Science, Sun Yat-sen University",
   location: "China",
   email: "zhuzihan@zhuzihan.com",
@@ -14,7 +14,7 @@ const config = {
   website: "https://zhuzihan.com/",
   repo: "https://github.com/handsomezhuzhu/zzh6",
   about: [
-    "Hey, I'm <b>handsomezhuzhu</b> 👋",
+    "Hey, I'm <b>Zihan Zhu</b> 👋",
     "",
     "An undergraduate student at the <b>School of Computer Science</b>,",
     "<b>Sun Yat-sen University</b>, based in China.",
@@ -66,21 +66,11 @@ const files = {
 };
 
 /* ---------------- helpers ---------------- */
-const ASCII_ART = [
-  "██╗  ██╗ █████╗ ███╗   ██╗██████╗ ███████╗ ██████╗ ███╗   ███╗███████╗███████╗██╗  ██╗██╗   ██╗███████╗██╗  ██╗██╗   ██╗",
-  "██║  ██║██╔══██╗████╗  ██║██╔══██╗██╔════╝██╔═══██╗████╗ ████║██╔════╝╚══███╔╝██║  ██║██║   ██║╚══███╔╝██║  ██║██║   ██║",
-  "███████║███████║██╔██╗ ██║██║  ██║███████╗██║   ██║██╔████╔██║█████╗    ███╔╝ ███████║██║   ██║  ███╔╝ ███████║██║   ██║",
-  "██╔══██║██╔══██║██║╚██╗██║██║  ██║╚════██║██║   ██║██║╚██╔╝██║██╔══╝   ███╔╝  ██╔══██║██║   ██║ ███╔╝  ██╔══██║██║   ██║",
-  "██║  ██║██║  ██║██║ ╚████║██████╔╝███████║╚██████╔╝██║ ╚═╝ ██║███████╗███████╗██║  ██║╚██████╔╝███████╗██║  ██║╚██████╔╝",
-  "╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝",
-].join("\n");
-
 const $ = (sel) => document.querySelector(sel);
 const output = $("#output");
 const terminal = $("#terminal");
 const hiddenInput = $("#hidden-input");
 const typedSpan = $("#typed");
-const ghostSpan = $("#ghost");
 const cursorEl = $("#cursor");
 
 const esc = (s) =>
@@ -101,11 +91,11 @@ function openLink(url) {
 
 function banner() {
   return [
-    `<pre class="ascii-art" aria-label="handsomezhuzhu">${ASCII_ART}</pre>`,
+    `<span class="banner-name">ZIHAN ZHU</span>`,
     `${config.role}`,
     `${config.location} · <a href="${config.github}" target="_blank" rel="noreferrer noopener">github</a> · <a href="${config.website}" target="_blank" rel="noreferrer noopener">website</a> · <a href="mailto:${config.email}">email</a>`,
     "",
-    `Welcome to my terminal. <span class="c-dim">(Fedora Web Edition)</span>`,
+    `Hi, I'm <b>Zihan Zhu</b> 👋 Welcome to my terminal. <span class="c-dim">(Fedora Web Edition)</span>`,
     `Type <span class="c-blue c-bold">help</span> to list commands, <span class="c-blue">about</span> to learn more about me.`,
     `<span class="c-dim">Tab autocompletes, ↑↓ recalls history, Ctrl+L clears the screen.</span>`,
   ].join("\n");
@@ -206,30 +196,6 @@ const commands = {
     desc: "toggle dark / light theme",
     run: () => (toggleTheme(), `switched to ${document.body.classList.contains("light") ? "light" : "dark"} theme`),
   },
-  sudo: {
-    desc: "run a command as root (maybe)",
-    run(args) {
-      if (args[0] === "rm") return `<span class="c-red">nice try. this page stays.</span>`;
-      return `<span class="c-red">visitor is not in the sudoers file. This incident will be reported.</span> 📝`;
-    },
-  },
-  coffee: {
-    desc: "brew a fresh cup",
-    run() {
-      return [
-        "      ( (",
-        "       ) )",
-        "    .........",
-        "    |       |___",
-        "    |       |_|  |",
-        "    |  ☕   |___|",
-        "     \\________/",
-        "",
-        "<span class='c-green'>your coffee is ready. enjoy!</span>",
-      ].join("\n");
-    },
-  },
-  exit: { desc: "close the session", run: () => "there is no escape — but closing the tab works." },
   clear: { desc: "clear the terminal", run: () => "__CLEAR__" },
 };
 
@@ -242,13 +208,6 @@ const promptHTML = `<span class="p-bracket">[</span><span class="p-user">${confi
 
 function renderInput() {
   typedSpan.textContent = currentInput;
-  ghostSpan.textContent = "";
-  if (currentInput && document.activeElement === hiddenInput) {
-    const match = commandNames()
-      .sort()
-      .find((c) => c.startsWith(currentInput) && c !== currentInput);
-    if (match) ghostSpan.textContent = match.slice(currentInput.length);
-  }
 }
 
 function execCommand(raw) {
@@ -368,7 +327,7 @@ $("#btn-close").addEventListener("click", (e) => {
 const BOOT_LINES = [
   `<span class="c-dim">[</span> SYSTEM <span class="c-dim">]</span> booting fedora web edition...`,
   `<span class="c-dim">[</span> SYSTEM <span class="c-dim">]</span> mounting /home/visitor`,
-  `<span class="c-dim">[</span> <span class="c-green">OK</span> <span class="c-dim">]</span> loaded profile: handsomezhuzhu`,
+  `<span class="c-dim">[</span> <span class="c-green">OK</span> <span class="c-dim">]</span> loaded profile: zihan.zhu`,
   `<span class="c-dim">[</span> <span class="c-green">OK</span> <span class="c-dim">]</span> terminal ready`,
 ];
 
