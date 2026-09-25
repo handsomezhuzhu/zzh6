@@ -157,6 +157,7 @@ body.light {
   cursor: pointer;
 }
 .titlebar-menu:hover { background: var(--dot-dim); color: var(--fg); }
+.titlebar-left { display: flex; align-items: center; gap: 2px; }
 .titlebar-title {
   position: absolute;
   left: 50%;

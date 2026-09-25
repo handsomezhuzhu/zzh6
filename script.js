@@ -220,6 +220,15 @@ const commands = {
     desc: "toggle dark / light theme",
     run: () => (toggleTheme(), `switched to ${document.body.classList.contains("light") ? "light" : "dark"} theme`),
   },
+  motto: {
+    desc: "a verse I live by",
+    run() {
+      return [
+        `<span class="c-bold">同是天涯沦落人,相逢何必曾相识。</span>`,
+        `<span class="c-dim">— "We are both drifters at the ends of the earth; why must we have met before to know each other?" (Bai Juyi, Pipa Xing)</span>`,
+      ].join("\n");
+    },
+  },
   clear: { desc: "clear the terminal", run: () => "__CLEAR__" },
 };
 
