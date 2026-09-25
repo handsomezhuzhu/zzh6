@@ -28,7 +28,7 @@ npm run preview  # preview the production build
 
 ## Deployment
 
-Pushing to `main` triggers the GitHub Actions workflow (`.github/workflows/pages.yml`), which builds with Vite and deploys to GitHub Pages automatically.
+`npm run build` outputs a plain static site to `dist/` — drop it onto any static host (Nginx, Vercel, Netlify, Cloudflare Pages, ...). Served from the domain root (`base: "/"`).
 
 ## License
 

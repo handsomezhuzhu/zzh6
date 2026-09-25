@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 
-// GitHub Pages serves this repo at https://handsomezhuzhu.github.io/zzh6/
+// deployed at the domain root (self-hosted)
 export default defineConfig({
-  base: "/zzh6/",
+  base: "/",
 });
