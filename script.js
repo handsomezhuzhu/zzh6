@@ -66,6 +66,15 @@ const files = {
 };
 
 /* ---------------- helpers ---------------- */
+const ASCII_ART = [
+  "██╗  ██╗ █████╗ ███╗   ██╗██████╗ ███████╗ ██████╗ ███╗   ███╗███████╗███████╗██╗  ██╗██╗   ██╗███████╗██╗  ██╗██╗   ██╗",
+  "██║  ██║██╔══██╗████╗  ██║██╔══██╗██╔════╝██╔═══██╗████╗ ████║██╔════╝╚══███╔╝██║  ██║██║   ██║╚══███╔╝██║  ██║██║   ██║",
+  "███████║███████║██╔██╗ ██║██║  ██║███████╗██║   ██║██╔████╔██║█████╗    ███╔╝ ███████║██║   ██║  ███╔╝ ███████║██║   ██║",
+  "██╔══██║██╔══██║██║╚██╗██║██║  ██║╚════██║██║   ██║██║╚██╔╝██║██╔══╝   ███╔╝  ██╔══██║██║   ██║ ███╔╝  ██╔══██║██║   ██║",
+  "██║  ██║██║  ██║██║ ╚████║██████╔╝███████║╚██████╔╝██║ ╚═╝ ██║███████╗███████╗██║  ██║╚██████╔╝███████╗██║  ██║╚██████╔╝",
+  "╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝",
+].join("\n");
+
 const $ = (sel) => document.querySelector(sel);
 const output = $("#output");
 const terminal = $("#terminal");
@@ -92,8 +101,7 @@ function openLink(url) {
 
 function banner() {
   return [
-    `<span class="banner-name">handsomezhuzhu</span>`,
-    `<span class="banner-rule">${"─".repeat(80)}</span>`,
+    `<pre class="ascii-art" aria-label="handsomezhuzhu">${ASCII_ART}</pre>`,
     `${config.role}`,
     `${config.location} · <a href="${config.github}" target="_blank" rel="noreferrer noopener">github</a> · <a href="${config.website}" target="_blank" rel="noreferrer noopener">website</a> · <a href="mailto:${config.email}">email</a>`,
     "",
