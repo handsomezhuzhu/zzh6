@@ -1,17 +1,43 @@
-/* ===== Fedora style terminal personal site ===== */
+/* ============================================================
+ * handsomezhuzhu — terminal homepage
+ * A clean glass terminal with Fedora-blue accents.
+ * ============================================================ */
+
 :root {
-  --fedora-blue: #51a2da;
-  --fedora-dark: #294172;
-  --bg: #16141f;
-  --term-bg: rgba(23, 20, 33, 0.92);
-  --titlebar: #2b2b2b;
-  --fg: #d0d0d0;
-  --green: #5fd75f;
-  --yellow: #d7af5f;
-  --red: #ff5f5f;
-  --magenta: #af87d7;
-  --cyan: #5fd7d7;
-  --mono: "Cascadia Mono", "JetBrains Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+  --accent: #51a2da;          /* fedora blue */
+  --accent-deep: #3c6eb4;
+  --green: #4ec98a;
+  --yellow: #e5b567;
+  --red: #e06c75;
+  --magenta: #b48ead;
+  --cyan: #56b6c2;
+
+  --bg-a: #0e1524;
+  --bg-b: #1c2a44;
+  --term-bg: rgba(16, 20, 32, 0.72);
+  --term-border: rgba(255, 255, 255, 0.09);
+  --titlebar: rgba(255, 255, 255, 0.04);
+  --fg: #d8dee9;
+  --fg-dim: #7a8699;
+  --cursor: #d8dee9;
+  --shadow: 0 30px 90px rgba(2, 6, 18, 0.6);
+  --dot-dim: rgba(255, 255, 255, 0.08);
+  --hint-fg: rgba(216, 222, 233, 0.45);
+}
+
+body.light {
+  --term-bg: rgba(255, 255, 255, 0.78);
+  --term-border: rgba(20, 40, 70, 0.1);
+  --titlebar: rgba(20, 40, 70, 0.04);
+  --fg: #2e3440;
+  --fg-dim: #8a94a6;
+  --cursor: #2e3440;
+  --accent: #3c6eb4;
+  --bg-a: #dfe9f5;
+  --bg-b: #b8cee8;
+  --shadow: 0 30px 80px rgba(60, 110, 180, 0.25);
+  --dot-dim: rgba(20, 40, 70, 0.08);
+  --hint-fg: rgba(46, 52, 64, 0.55);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,154 +45,160 @@
 html, body { height: 100%; }
 
 body {
-  font-family: var(--mono);
-  background:
-    radial-gradient(ellipse at 20% 20%, rgba(81, 162, 218, 0.25), transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(41, 65, 114, 0.5), transparent 60%),
-    linear-gradient(135deg, #1a1f2e 0%, #294172 55%, #51a2da 130%);
+  font-family: "Cascadia Mono", "JetBrains Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+  font-size: 14px;
   color: var(--fg);
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 10%, rgba(81, 162, 218, 0.28), transparent 60%),
+    radial-gradient(ellipse 50% 60% at 85% 90%, rgba(60, 110, 180, 0.25), transparent 60%),
+    linear-gradient(160deg, var(--bg-a), var(--bg-b));
+  background-attachment: fixed;
   overflow: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.desktop {
+.stage {
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
 }
 
-/* ---- GNOME top bar ---- */
-.topbar {
-  width: 100%;
-  height: 28px;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  font-size: 12px;
-  color: #eee;
-  flex-shrink: 0;
-  position: relative;
-}
-.topbar-activities { font-weight: bold; }
-.topbar-clock {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.topbar-right {
-  margin-left: auto;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  opacity: 0.9;
-}
-
-/* ---- window ---- */
+/* ---- glass window ---- */
 .window {
-  margin-top: 4vh;
-  width: min(880px, 94vw);
-  height: min(660px, 80vh);
-  border-radius: 10px 10px 8px 8px;
+  width: min(860px, 100%);
+  height: min(560px, 82vh);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  background: var(--term-bg);
+  border: 1px solid var(--term-border);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 .window.maximized {
-  margin-top: 0;
   width: 100vw;
-  height: calc(100vh - 28px);
+  height: 100vh;
   border-radius: 0;
 }
 
+/* ---- titlebar ---- */
 .titlebar {
-  height: 38px;
-  background: var(--titlebar);
+  height: 40px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  padding: 0 8px;
-  color: #ddd;
-  flex-shrink: 0;
+  padding: 0 14px;
+  background: var(--titlebar);
+  border-bottom: 1px solid var(--term-border);
   user-select: none;
   position: relative;
 }
-.titlebar-menu { display: flex; opacity: 0.8; }
+.dots { display: flex; gap: 8px; }
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.dot:hover { opacity: 1; transform: scale(1.12); }
+.dot-close { background: #ff5f57; }
+.dot-min { background: #febc2e; }
+.dot-max { background: #28c840; }
 .titlebar-title {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--fg-dim);
+  letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.titlebar-buttons { margin-left: auto; display: flex; gap: 6px; }
-.tb-btn {
-  width: 30px;
-  height: 24px;
+.theme-toggle {
+  margin-left: auto;
   border: none;
   background: transparent;
-  color: #ccc;
-  border-radius: 5px;
+  color: var(--fg-dim);
   cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
 }
-.tb-btn:hover { background: rgba(255, 255, 255, 0.12); }
-.tb-close:hover { background: #e01b24; color: #fff; }
+.theme-toggle:hover { background: var(--dot-dim); color: var(--fg); }
+body:not(.light) .icon-sun { display: none; }
+body.light .icon-moon { display: none; }
 
-/* ---- terminal ---- */
+/* ---- terminal body ---- */
 .terminal {
   flex: 1;
-  background: var(--term-bg);
-  padding: 12px 14px;
+  padding: 16px 18px;
   overflow-y: auto;
-  font-size: 14px;
-  line-height: 1.45;
+  line-height: 1.5;
   cursor: text;
 }
 .terminal::-webkit-scrollbar { width: 8px; }
-.terminal::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+.terminal::-webkit-scrollbar-track { background: transparent; }
+.terminal::-webkit-scrollbar-thumb { background: var(--dot-dim); border-radius: 4px; }
+.terminal::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 #output { white-space: pre-wrap; word-break: break-word; }
-
 .line { min-height: 1.2em; }
-.cmd-line { margin-top: 6px; }
+.cmd-line { margin-top: 10px; }
 
-/* prompt colors */
-.p-bracket { color: #999; }
-.p-user, .p-host { color: var(--fedora-blue); font-weight: bold; }
-.p-at { color: var(--fg); }
-.p-dir { color: var(--magenta); font-weight: bold; }
+/* prompt */
+.p-bracket { color: var(--fg-dim); }
+.p-user { color: var(--accent); font-weight: 700; }
+.p-at { color: var(--fg-dim); }
+.p-host { color: var(--accent-deep); font-weight: 700; }
+body.light .p-host { color: var(--accent); }
+.p-dir { color: var(--magenta); font-weight: 700; }
 .p-dollar { color: var(--fg); }
-.typed-cmd { color: #fff; }
+.typed-cmd { color: var(--fg); font-weight: 600; }
 
-/* output colors */
-.c-blue { color: var(--fedora-blue); }
-.c-darkblue { color: #7c9ecf; }
+/* palette helpers */
+.c-blue { color: var(--accent); }
+.c-deep { color: var(--accent-deep); }
 .c-green { color: var(--green); }
 .c-yellow { color: var(--yellow); }
 .c-red { color: var(--red); }
 .c-cyan { color: var(--cyan); }
 .c-magenta { color: var(--magenta); }
-.c-dim { color: #888; }
-.c-bold { font-weight: bold; }
+.c-dim { color: var(--fg-dim); }
+.c-bold { font-weight: 700; }
 
-a { color: var(--fedora-blue); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted transparent; }
+a:hover { border-bottom-color: var(--accent); }
+
+/* banner */
+.banner-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+.banner-rule { color: var(--fg-dim); }
 
 /* input line */
-.input-line { display: flex; align-items: baseline; margin-top: 4px; }
-.prompt { flex-shrink: 0; margin-right: 6px; }
+.input-line { display: flex; align-items: baseline; margin-top: 6px; }
+.prompt { flex-shrink: 0; margin-right: 8px; }
 .input-wrap { position: relative; flex: 1; white-space: pre-wrap; word-break: break-all; }
-#ghost { color: #555; }
+#ghost { color: var(--fg-dim); opacity: 0.55; }
 .cursor {
   display: inline-block;
-  background: var(--fg);
+  background: var(--cursor);
   color: var(--term-bg);
-  animation: blink 1s step-end infinite;
+  animation: blink 1.05s step-end infinite;
 }
 .cursor.no-blink { animation: none; }
 @keyframes blink { 50% { opacity: 0; } }
@@ -186,26 +218,22 @@ a:hover { text-decoration: underline; }
 }
 
 .hint {
-  margin-top: 10px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--hint-fg);
+  text-align: center;
 }
-.hint code {
-  background: rgba(0, 0, 0, 0.4);
-  padding: 1px 6px;
-  border-radius: 4px;
-  color: var(--fedora-blue);
+.hint code, .hint kbd {
+  background: var(--dot-dim);
+  border: 1px solid var(--term-border);
+  padding: 1px 7px;
+  border-radius: 6px;
+  font-family: inherit;
+  color: var(--accent);
 }
 
-/* fastfetch table */
-.ff-row { display: flex; }
-.ff-key { color: var(--fedora-blue); font-weight: bold; min-width: 92px; }
-.ff-sep { color: #666; margin-right: 8px; }
-
-/* mobile */
 @media (max-width: 640px) {
-  .window { margin-top: 0; width: 100vw; height: calc(100vh - 28px - 34px); border-radius: 0; }
-  .terminal { font-size: 12.5px; }
-  .hint { padding: 0 8px; text-align: center; }
+  .stage { padding: 0; gap: 0; }
+  .window { width: 100vw; height: 100vh; border-radius: 0; border: none; }
+  .hint { display: none; }
+  body { font-size: 13px; }
 }
-
